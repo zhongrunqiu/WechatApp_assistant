@@ -27,6 +27,6 @@ def already_authorized(request):
 def get_user(request):
     if not already_authorized(request):
         raise Exception('not authorized request')
-    open_id = request.session['openid']
+    open_id = request.session['open_id']
     user = User.objects.get(open_id=open_id)
     return user

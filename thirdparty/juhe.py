@@ -37,21 +37,22 @@ def stock(market,code):
     url = api + params
     request_data = requests.get(url=url)
     json_data = json.loads(request_data.text)
-    print(json_data)
     result = json_data['result'][0]['data']
     response = {
         'name' : result['name'],
         'increPer' : result['increPer'],
         'start_price' : result['todayStartPri'],
         'now_price' : result['nowPri'],
-        'todayMax' : result['todayMax'],
-        'todayMin' : result['todayMin'],
+        'today_max' : result['todayMax'],
+        'today_min' : result['todayMin'],
         'date' : result['date'],
         'time' : result['time']
     }
-    # response['is_rising'] = result.get('nowPri') > result.get('todayStartPri')
-    # sub = abs(float(result.get('nowPri')) - float(result.get('todayStartPri')))  # 差值
-    # response['sub'] = float('%.3f' % sub)
+    response['is_rising'] = result.get('nowPri') >= result.get('todayStartPri')
+    print('nowPri:',result.get('nowPri'),'todayStartPri',result.get('todayStartPri'))
+    print('is_rising:',response['is_rising'])
+    sub = abs(float(result.get('nowPri')) - float(result.get('todayStartPri')))  # 差值
+    response['sub'] = float('%.3f' % sub)
     return response
 
 def constellation(cons_name):
@@ -60,10 +61,10 @@ def constellation(cons_name):
     :return: 今天运势
     '''
     key = '97cc392cada91655cc31bf5b23320a7f'
-    api = 'http://web.juhe.cn:8080/constellation/getAll?'
+    api = 'http://web.juhe.cn:8080/constellation/getAll'
     types = ['today','tomorrow','week','month','year']
     params = 'consName=%s&type=%s&key=%s' % (cons_name,types[0],key)
-    url = api + params
+    url = api + '?' + params
     request_data = requests.get(url=url)
     json_data = json.loads(request_data.text)
     response = {

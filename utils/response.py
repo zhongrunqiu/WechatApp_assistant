@@ -27,6 +27,19 @@ class ReturnCode:
 class CommonResponseMixin():
     @classmethod
     def wrap_json_response(cls,data=None,code=None,message=None):
+        """
+        Args:
+            data:数据
+            code:返回状态码
+            message:返回消息
+
+        Returns:
+            {
+                data : {data}
+                result_code : 0
+                message : 'message'
+            }
+        """
         response = {}
         if not code:
             code = ReturnCode.SUCCESS

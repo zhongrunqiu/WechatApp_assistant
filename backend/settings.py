@@ -25,7 +25,7 @@ SECRET_KEY = '1im7l^9_1o@qym81m4z#9$_^!_=p7##gs6-#w4$8g24l)&)$+5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -76,11 +76,31 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     },
+#     'slave':{
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'django_backend',
+#         'USER':'django',
+#         'PASSWORD':'django',
+#         'HOST':'127.0.0.1',
+#         'PORT':'3306'
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_backend',
+        'USER':'django',
+        'PASSWORD':'django',
+        'HOST':'127.0.0.1',
+        'PORT':'3306'
+    },
 }
 
 
@@ -106,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
 TIME_ZONE = 'UTC'
 
@@ -126,3 +146,19 @@ RESOUCES_DIR = os.path.join(BASE_DIR,'resources')
 IMAGES_DIR = os.path.join(RESOUCES_DIR,'images')
 
 WX_APP_SECRET = 'f1176d1e741a46d3739e9b0b64e5bd1f'
+
+# LOGGING = {
+#     'formatters':'%(asctime)s [%(threadName)s: %(thraedid)d]'
+
+# }
+
+CACHES = {
+    'default':{
+        # 1.MemCache
+        # 'BACKEND':'',
+        # 'LOCATION':'',
+
+        'BACKEND':'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION':'backend-cache',
+    }
+}

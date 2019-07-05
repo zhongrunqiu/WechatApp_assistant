@@ -4,6 +4,7 @@ published:
       application: weather
       name: 天气
       url: /service/weather
+      publish_date: 2019-6-18
       desc: this is weather app
 
   - app:
@@ -11,6 +12,7 @@ published:
       application: backup-image
       name: 图片备份
       url: /service/image
+      publish_date: 2019-6-18
       desc: this is image app
 
   - app:
@@ -18,6 +20,7 @@ published:
       application: stock
       name: 股票
       url: /service/stock
+      publish_date: 2019-6-18
       desc: this is stock app
 
   - app:
@@ -25,6 +28,7 @@ published:
       application: constellation
       name: 星座运势
       url: /service/constellation
+      publish_date: 2019-6-18
       desc: this is constellation app
 
   - app:
@@ -32,6 +36,7 @@ published:
       application: joke
       name: 笑话
       url: /service/joke
+      publish_date: 2019-6-18
       desc: this is joke app
 
 developing:
@@ -41,4 +46,5 @@ developing:
       application: joke
       name: 笑话
       url: /service/joke
+      publish_date: 2019-6-18
       desc: this is joke app

@@ -4,11 +4,13 @@ import random
 
 from django.http import HttpRequest, JsonResponse
 from django.views import View
+from django.core.cache import cache
 
 import thirdparty.juhe
 from backend import settings
 from utils.auth import User, already_authorized
 from utils.response import CommonResponseMixin
+from utils.timeoutUtil import get_day_left_in_second
 
 popular_stocks = [
     {
@@ -60,7 +62,13 @@ class Constellation(View,CommonResponseMixin):
             constellations = all_constellations
         data = []
         for cons in constellations:
-            result = thirdparty.juhe.constellation(cons)
+            key = 'constellations_' + cons
+            result = cache.get(key)
+            if not result:
+                result = thirdparty.juhe.constellation(cons)
+                timeout = get_day_left_in_second()
+                print('key:',key)
+                cache.set(key,result,timeout)
             data.append(result)
         response = self.wrap_json_response(data=data)
         return JsonResponse(data=response,safe=False)

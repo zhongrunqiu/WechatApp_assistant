@@ -68,6 +68,12 @@ class UserView(View,CommonResponseMixin):
         response = self.wrap_json_response(message='modify userinfo success')
         return JsonResponse(data=response,safe=False)
 
+class LoginOut(View,CommonResponseMixin):
+    def get(self,request):
+        request.session.clear()
+        response = self.wrap_json_response(message='logout seccess')
+        return JsonResponse(data=response,safe=False)
+
 def __authorize_by_code(request):
     '''
     使用wx.login得到的临时code到微信提供code2session接口授权

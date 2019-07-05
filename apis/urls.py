@@ -5,9 +5,10 @@ from .views import weather,menu,image,service
 urlpatterns = [
     # path('weather', weather.weather),
     path('weather', weather.WeatherView.as_view()),
-    path('menu',menu.get_menu),
+    # path('menu',menu.get_menu),
     # path('image',image.image),
     # path('imagetext',image.image_text)
+    path('menu',menu.MenuView.as_view()),
     path('image',image.ImageView.as_view()),
     path('image/list',image.ImageListView.as_view()),
     path('stock',service.Stock.as_view()),
