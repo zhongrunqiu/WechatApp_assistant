@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'django_backend',
 #         'USER':'django',
-#         'PASSWORD':'django',
+#         'PASSWORD':'lucas_Django_server',
 #         'HOST':'127.0.0.1',
 #         'PORT':'3306'
 #     }
@@ -128,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'  # UTC
 
 USE_I18N = True
 
@@ -141,6 +141,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 RESOUCES_DIR = os.path.join(BASE_DIR,'resources')
 IMAGES_DIR = os.path.join(RESOUCES_DIR,'images')

@@ -6,7 +6,7 @@ import django
 import logging
 
 import sys
-sys.path.append('D:\\python\\github\\WechatApp_assistant')
+sys.path.append('/home/pi/github/WechatApp_assistant/')
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 django.setup()
