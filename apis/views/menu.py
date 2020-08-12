@@ -24,13 +24,15 @@ def init_app_data():
 class MenuView(View,CommonResponseMixin):
     def get(self,request):
         if not already_authorized(request):
+            print(request)
             # global_app_data = init_app_data()
             # published_app_data = global_app_data.get('published')
             query_set = App.objects.all()
             all_app = []
             for app in query_set:
                 all_app.append(app.to_dict())
-            response = self.wrap_json_response(data=all_app,code=ReturnCode.SUCCESS)
+            response = self.wrap_json_response(data=all_app,code=1)
+            print('not auth')
             return JsonResponse(response,safe=False)
         else:
             user = get_user(request)
@@ -39,7 +41,8 @@ class MenuView(View,CommonResponseMixin):
             user_menu = []
             for app in menu_list:
                 user_menu.append(app.to_dict())
-            response = self.wrap_json_response(data=user_menu,code=ReturnCode.SUCCESS)
+            response = self.wrap_json_response(data=user_menu,code=2)
+            print('authed')
             print('user_menu:',user_menu)
             return JsonResponse(response,safe=False)
 
@@ -55,6 +58,7 @@ class MenuView(View,CommonResponseMixin):
             item = App.objects.get(appid=item['appid'])
             focus_menu.append(item)
         user.menu.set(focus_menu)
+        print('focuz_menu:', focus_menu)
         user.save()
-        response = self.wrap_json_response()
+        response = self.wrap_json_response(code=ReturnCode.SUCCESS)
         return JsonResponse(data=response,safe=False)
