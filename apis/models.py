@@ -23,4 +23,4 @@ class App(models.Model):
         }
 
     def __str__(self):
-        return str(self.to_dict())
+        return str('{}({})'.format(self.name,self.application))

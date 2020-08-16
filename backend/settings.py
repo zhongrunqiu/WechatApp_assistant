@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'django_backend',
 #         'USER':'django',
-#         'PASSWORD':'django',
+#         'PASSWORD':'lucas_Django_server',
 #         'HOST':'127.0.0.1',
 #         'PORT':'3306'
 #     }
@@ -97,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_backend',
         'USER':'django',
-        'PASSWORD':'django',
+        'PASSWORD':'lucas_Django_server',
         'HOST':'127.0.0.1',
         'PORT':'3306'
     },
@@ -128,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'  # UTC
 
 USE_I18N = True
 
@@ -142,15 +142,56 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 RESOUCES_DIR = os.path.join(BASE_DIR,'resources')
 IMAGES_DIR = os.path.join(RESOUCES_DIR,'images')
 
 WX_APP_SECRET = 'f1176d1e741a46d3739e9b0b64e5bd1f'
 
-# LOGGING = {
-#     'formatters':'%(asctime)s [%(threadName)s: %(thraedid)d]'
+LOG_DIR = os.path.join(BASE_DIR, 'log')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
 
-# }
+LOGGING = {
+    'version': 1,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(threadName)s: %(thread)d] ' 
+                      '%(pathname)s:%(funcName)s:%(lineno)d %(levelname)s'
+        }
+    },
+    'filters': {
+        'test': {
+            '()': 'ops.TestFilter',
+        }
+    },
+    'handlers': {
+        'console_handler': {
+            'level': 'INFO', 
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
+        },
+        'file_handler': {
+            'level': 'DEBUG', 
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'backend.log'),
+            'maxBytes': 1024*1024*128,
+            'backupCount': 5,
+            'formatter': 'standard',
+            'encoding': 'utf-8',
+        },
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console_handler', 'file_handler'],
+            'filters': ['test'],
+            'encoding': 'utf-8'
+        }
+    }
+
+}
 
 CACHES = {
     'default':{
